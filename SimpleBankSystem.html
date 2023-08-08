@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bank Application</title>
+<style>
+    body {
+  font-family: Arial, sans-serif;
+  background-color: #f1f1f1;
+  text-align: center;
+  margin-top: 150px;
+}
+
+h1 {
+  color: #333;
+}
+
+#balance {
+  margin-top: 20px;
+  font-size: 18px;
+  
+}
+
+#menu {
+  margin-top: 40px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+}
+button:last-child{
+    background-color:red;
+}
+
+#result {
+  margin-top: 20px;
+
+  font-size: 18px;
+}
+</style>
+</head>
+<body>
+  <h1>Simple Bank Application</h1>
+  <div id="balance">Current Balance: $0.00</div>
+  <div id="menu">
+    <button onclick="deposit()">Deposit</button>
+    <button onclick="withdraw()">Withdraw</button>
+    <button onclick="exit()">Exit</button>
+  </div>
+  <div id="result"></div>
+
+  <script>
+    let balance = 0.00;
+
+function updateBalance() {
+  document.getElementById("balance").textContent = "Current Balance: $" + balance.toFixed(2);
+}
+
+function deposit() {
+  let depositAmount = parseFloat(prompt("Enter the deposit amount:"));
+//check value of Amount,(!isNaN()is used to determine whether a value is NaN (Not-a-Number)
+  if (!isNaN(depositAmount) && depositAmount > 0) {
+    balance += depositAmount;
+    updateBalance();
+    //used (toFixed()) to  format the balance amount with 2 decimal places.
+    document.getElementById("result").textContent = "Deposit of $" + depositAmount.toFixed(2) + " successful.";
+    
+  } else {
+    document.getElementById("result").textContent = "Invalid deposit amount.";
+  }
+}
+
+function withdraw() {
+  let withdrawalAmount = parseFloat(prompt("Enter the withdrawal amount:"));
+
+  if (!isNaN(withdrawalAmount) && withdrawalAmount > 0) {
+    if (withdrawalAmount <= balance) {
+      balance -= withdrawalAmount;
+      updateBalance();
+      document.getElementById("result").textContent = "Withdrawal of $" + withdrawalAmount.toFixed(2) + " successful.";
+    } else {
+      document.getElementById("result").textContent = "Insufficient balance.";
+    }
+  } else {
+    document.getElementById("result").textContent = "Invalid withdrawal amount.";
+  }
+}
+
+function exit() {
+  document.getElementById("result").textContent = "Thank you for using the bank application. Final balance: $" + balance.toFixed(2);
+  document.getElementById("menu").style.display = "none";
+}
+  </script>
+</body>
+</html>
